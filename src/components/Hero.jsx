@@ -154,6 +154,9 @@ return (
             <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
                 Enter the Metagame Layer <br /> Unleash the Play Economy
             </p>
+            <p className="mb-5 max-w-96 font-robert-regular font-bold text-blue-100 text-lg">
+                Click the center of the hero to see a surprise!
+            </p>
 
             <Button
                 id="watch-trailer"
