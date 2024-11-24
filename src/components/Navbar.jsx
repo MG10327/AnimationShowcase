@@ -1,11 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TiLocationArrowOutline } from 'react-icons/ti'
+import {useWindowScroll} from "react-use"
 import Button from './Button'
 import clsx from "clsx";
 
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false)
     const [isIndicatorActive, setIsIndicatorActive] = useState(false)
+    const [lastScrollY, setLastScrollY] = useState(0)
+    const [isNavVisible, setIsNavVisible] = useState(true)
+
+    const {y: currentScrollY } = useWindowScroll()
+
+    useEffect(() => {
+        if(currentScrollY === 0) {
+            setIsNavVisible(true)
+            navContainerRef.current.classList.remove('floating-nav')
+        } else if (currentScrollY < lastScrollY){
+          setIsNavVisible(true)
+          navContainerRef.current.classList.add('floating-nav')
+        } else if (currentScrollY > lastScrollY) {
+          setIsNavVisible(false)
+          navContainerRef.current.classList.add('floating-nav')
+        }
+    }, [currentScrollY, lastScrollY])
 
     const navContainerRef = useRef(null)
     const audioElementRef = useRef(null)
