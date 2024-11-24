@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TiLocationArrowOutline } from 'react-icons/ti'
+import { TiLocationArrow } from 'react-icons/ti'
 import {useWindowScroll} from "react-use"
 import Button from './Button'
 import clsx from "clsx";
@@ -16,13 +16,13 @@ const Navbar = () => {
     useEffect(() => {
         if(currentScrollY === 0) {
             setIsNavVisible(true)
-            navContainerRef.current.classList.remove('floating-nav')
+            navContainerRef.current.classList.remove("floating-nav")
         } else if (currentScrollY < lastScrollY){
           setIsNavVisible(true)
-          navContainerRef.current.classList.add('floating-nav')
+          navContainerRef.current.classList.add("floating-nav")
         } else if (currentScrollY > lastScrollY) {
           setIsNavVisible(false)
-          navContainerRef.current.classList.add('floating-nav')
+          navContainerRef.current.classList.add("floating-nav")
         }
 
         setLastScrollY(currentScrollY)
@@ -55,55 +55,56 @@ const Navbar = () => {
     const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"]
 
   return (
-    <div className='fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6' ref={navContainerRef}>
-        <header className='absolute top-1/2 w-full -translate-y-1/2'>
-            <nav className='flex size-full items-center justify-between p-4'>
-                <div className='flex items-center gap-7'>
-                    <img src="/img/logo.png" alt="logo" className='w-10' />
+    <div className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6" ref={navContainerRef}>
+        <header className="absolute top-1/2 w-full -translate-y-1/2">
+            <nav className="flex size-full items-center justify-between p-4">
+                <div className="flex items-center gap-7">
+                    <img src="/img/logo.png" alt="logo" className="w-10" />
 
                     <Button
-                        id="production-button"
+                        id="product-button"
                         title="Products"
-                        rightIcon={<TiLocationArrowOutline />}
+                        rightIcon={<TiLocationArrow />}
                         containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
                     />
+                </div>
 
-                    <div className="flex h-full items-center">
-                        <div className='hidden md:block'>
-                            {navItems.map((item, i ) =>
-                                <a
-                                key={i}
-                                href={`#${item.toLowerCase()}`}
-                                className="nav-hover-btn"
-                                >
-                                    {item}
-                                </a>
-                            )}
-                        </div>
+                <div className="flex h-full items-center">
+                    <div className="hidden md:block">
+                        {navItems.map((item, i ) =>
+                            <a
+                            key={i}
+                            href={`#${item.toLowerCase()}`}
+                            className="nav-hover-btn"
+                            >
+                                {item}
+                            </a>
+                        )}
                     </div>
 
                     <button
-              onClick={toggleAudioIndicator}
-              className="ml-10 flex items-center space-x-0.5"
-            >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={clsx("indicator-line", {
-                    active: isIndicatorActive,
-                  })}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
-            </button>
+                      onClick={toggleAudioIndicator}
+                      className="ml-10 flex items-center space-x-0.5"
+                    >
+                    <audio
+                      ref={audioElementRef}
+                      className="hidden"
+                      src="/audio/loop.mp3"
+                      loop
+                    />
+                    {[1, 2, 3, 4].map((bar) => (
+                      <div
+                        key={bar}
+                        className={clsx("indicator-line", {
+                          active: isIndicatorActive,
+                        })}
+                        style={{
+                          animationDelay: `${bar * 0.1}s`,
+                        }}
+                      />
+                    ))}
+                    <p className="nav-hover-btn">&nbsp; (Music)</p>
+                  </button>
                 </div>
             </nav>
         </header>
