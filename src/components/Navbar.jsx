@@ -103,7 +103,7 @@ const Navbar = () => {
                         }}
                       />
                     ))}
-                    <p className="nav-hover-btn">&nbsp; (Music)</p>
+                    <p className="nav-hover-btn">&nbsp; (Toggle Music)</p>
                   </button>
                 </div>
             </nav>
