@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TiLocationArrowOutline } from 'react-icons/ti'
 import Button from './Button'
+import clsx from "clsx";
 
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false)
@@ -10,8 +11,17 @@ const Navbar = () => {
     const audioElementRef = useRef(null)
 
     const toggleAudioIndicator = () => {
-
+        setIsAudioPlaying((prev) => !prev)
+        setIsIndicatorActive((prev) => !prev)
     }
+
+    useEffect(() => {
+        if(isAudioPlaying) {
+            audioElementRef.current.play()
+        } else {
+            audioElementRef.current.pause()
+        }
+    }, [isAudioPlaying])
 
     const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"]
 
@@ -43,19 +53,28 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <button className='ml-10 flex items-center space-x-0.5 ' onClick={toggleAudioIndicator}>
-                        <audio src="/audio/loop.mp3" ref={toggleAudioIndicator} className='hidden' ></audio>
-                        {[1,2,3,4 ].map((bar) =>
-                            <div
-                            key={bar}
-                            className={`indicator-line ${isIndicatorActive ? 'active' : " "}`}
-                            style={{animationDelay: `${bar * 0.1}`}}
-
-                            >
-
-                            </div>
-                        )}
-                    </button>
+                    <button
+              onClick={toggleAudioIndicator}
+              className="ml-10 flex items-center space-x-0.5"
+            >
+              <audio
+                ref={audioElementRef}
+                className="hidden"
+                src="/audio/loop.mp3"
+                loop
+              />
+              {[1, 2, 3, 4].map((bar) => (
+                <div
+                  key={bar}
+                  className={clsx("indicator-line", {
+                    active: isIndicatorActive,
+                  })}
+                  style={{
+                    animationDelay: `${bar * 0.1}s`,
+                  }}
+                />
+              ))}
+            </button>
                 </div>
             </nav>
         </header>
