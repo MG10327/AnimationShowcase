@@ -3,6 +3,7 @@ import { TiLocationArrowOutline } from 'react-icons/ti'
 import {useWindowScroll} from "react-use"
 import Button from './Button'
 import clsx from "clsx";
+import gsap from 'gsap';
 
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false)
@@ -23,7 +24,17 @@ const Navbar = () => {
           setIsNavVisible(false)
           navContainerRef.current.classList.add('floating-nav')
         }
+
+        setLastScrollY(currentScrollY)
     }, [currentScrollY, lastScrollY])
+
+    useEffect(() => {
+      gsap.to(navContainerRef.current, {
+        y: isNavVisible ? 0 : -100,
+        opacity: isNavVisible ? 1 : 0,
+        duration: 0.2,
+      })
+    }, [isNavVisible])
 
     const navContainerRef = useRef(null)
     const audioElementRef = useRef(null)
